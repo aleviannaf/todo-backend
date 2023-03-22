@@ -6,8 +6,8 @@ interface IWorkOrderRequest {
   }
   
   interface IWorkOrder extends IWorkOrderRequest {
-    start_date: Date
-    end_date: Date
+    startDate: Date
+    endDate: Date
     id: string
   }
 
