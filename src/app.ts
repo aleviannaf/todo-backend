@@ -1,5 +1,5 @@
 import express, { Application, json, Request, Response } from "express";
-import { createWorkOrder, listWorkOrder } from "./logic";
+import { createWorkOrder, deleteWorkOrder, listWorkOrder, retrieveWorkOrder } from "./logic";
 
 const app: Application = express();
 app.use(json());
@@ -7,6 +7,10 @@ app.use(json());
 app.post("/work-order", createWorkOrder);
 
 app.get("/work-order", listWorkOrder);
+
+app.get("/work-order/:id", retrieveWorkOrder);
+
+app.delete("/work-order/:id", deleteWorkOrder)
 
 const PORT: number = 3000;
 
