@@ -1,5 +1,11 @@
 import express, { Application, json, Request, Response } from "express";
-import { createWorkOrder, deleteWorkOrder, listWorkOrder, retrieveWorkOrder } from "./logic";
+import {
+  createWorkOrder,
+  deleteWorkOrder,
+  listWorkOrder,
+  retrieveWorkOrder,
+} from "./logic";
+import { ensureWorkOrderExists } from "./middlewares";
 
 const app: Application = express();
 app.use(json());
@@ -8,9 +14,9 @@ app.post("/work-order", createWorkOrder);
 
 app.get("/work-order", listWorkOrder);
 
-app.get("/work-order/:id", retrieveWorkOrder);
+app.get("/work-order/:id", ensureWorkOrderExists, retrieveWorkOrder);
 
-app.delete("/work-order/:id", deleteWorkOrder)
+app.delete("/work-order/:id", ensureWorkOrderExists, deleteWorkOrder);
 
 const PORT: number = 3000;
 
