@@ -76,4 +76,13 @@ const deleteWorkOrder = (request: Request, response: Response): Response => {
   return response.status(204).send();
 };
 
-export { createWorkOrder, listWorkOrder, retrieveWorkOrder, deleteWorkOrder };
+const updateWorkOrder = (request: Request, response: Response): Response=>{
+  
+  const indexWorkOrder: number = request.workOrder.indexWorkOrder;
+
+  orders[indexWorkOrder]= {...orders[indexWorkOrder], ...request.body}
+
+  return response.json(orders[indexWorkOrder])
+}
+
+export { createWorkOrder, listWorkOrder, retrieveWorkOrder, deleteWorkOrder, updateWorkOrder };

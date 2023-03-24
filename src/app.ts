@@ -4,6 +4,7 @@ import {
   deleteWorkOrder,
   listWorkOrder,
   retrieveWorkOrder,
+  updateWorkOrder,
 } from "./logic";
 import { ensureWorkOrderExists } from "./middlewares";
 
@@ -17,6 +18,8 @@ app.get("/work-order", listWorkOrder);
 app.get("/work-order/:id", ensureWorkOrderExists, retrieveWorkOrder);
 
 app.delete("/work-order/:id", ensureWorkOrderExists, deleteWorkOrder);
+
+app.patch("/work-order/:id", ensureWorkOrderExists, updateWorkOrder);
 
 const PORT: number = 3000;
 
