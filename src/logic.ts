@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { request, Request, Response } from "express";
 import {
   IWorkOrder,
   IWorkOrderRequest,
@@ -44,15 +44,15 @@ const createWorkOrder = (request: Request, response: Response): Response => {
 
     return response.status(201).json(newOrderData);
   } catch (error) {
-    if(error instanceof Error){
+    if (error instanceof Error) {
       return response.status(400).json({
-        message: error.message
-      })
+        message: error.message,
+      });
     }
     console.log(error);
     return response.status(500).json({
-      message: "Internal server error"
-    })
+      message: "Internal server error",
+    });
   }
 };
 
@@ -60,4 +60,20 @@ const listWorkOrder = (request: Request, response: Response): Response => {
   return response.status(200).json(orders);
 };
 
-export { createWorkOrder, listWorkOrder };
+const retrieveWorkOrder = (request: Request, response: Response): Response => {
+  const indexWorkOrder: number = request.workOrder.indexWorkOrder;
+
+  return response.status(200).json(orders[indexWorkOrder]);
+};
+
+const deleteWorkOrder = (request: Request, response: Response): Response => {
+  const indexWorkOrder: number = request.workOrder.indexWorkOrder;
+
+  orders.splice(indexWorkOrder, 1);
+
+  //para deleção o status é 204, quando usado esse status
+  //é usado a função send sem parameto, pq por si só já mostra que foi deletado com sucesso
+  return response.status(204).send();
+};
+
+export { createWorkOrder, listWorkOrder, retrieveWorkOrder, deleteWorkOrder };
